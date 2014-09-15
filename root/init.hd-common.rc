@@ -205,6 +205,10 @@ on property:init.svc.smc_pa=stopped
 on property:wlan.driver.status=ok
     chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
 
+# stop ril-daemon for wifi-only device
+on property:ro.carrier=wifi-only
+    stop ril-daemon
+
 on property:init.svc.bootanim=stopped
 
 service p2p_supplicant /system/bin/wpa_supplicant \
