@@ -78,7 +78,7 @@ public class USBSwitcherActivity extends Activity {
 
                         DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 
-                        dos.writeBytes("echo " + mode + "> /sys/devices/platform/omap/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id\n");
+                        dos.writeBytes("echo " + mode + "> /sys/devices/platform/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id\n");
                         dos.writeBytes("exit");
                 dos.flush();
                 dos.close();
@@ -99,7 +99,7 @@ public class USBSwitcherActivity extends Activity {
             }
 */
         try {
-            OutputStream outstream = new FileOutputStream("/sys/devices/platform/omap/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id");
+            OutputStream outstream = new FileOutputStream("/sys/devices/platform/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id");
 
             OutputStreamWriter outputwriter = new OutputStreamWriter(outstream);
 
@@ -123,7 +123,7 @@ public class USBSwitcherActivity extends Activity {
     
     private String readUsbIDStatus() {
         try {
-                InputStream instream = new FileInputStream("/sys/devices/platform/omap/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id");
+                InputStream instream = new FileInputStream("/sys/devices/platform/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id");
 
                 InputStreamReader inputreader = new InputStreamReader(instream);
                 BufferedReader buffreader = new BufferedReader(inputreader);
