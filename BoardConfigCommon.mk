@@ -70,7 +70,7 @@ BOARD_KERNEL_BASE := 0x80000000
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_KERNEL_SOURCE := kernel/bn/omap
+TARGET_KERNEL_SOURCE := kernel/omap4/common
 ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/arch/arm/configs/android_omap4_defconfig)))
 TARGET_KERNEL_CONFIG := android_omap4_defconfig
 endif

@@ -6,14 +6,15 @@ on init
     # no systemless SuperSU
     export SYSTEMLESS false
 
-    symlink /dev/block/platform/omap/omap_hsmmc.1 /dev/block/bootdevice
+    symlink /dev/block/platform/omap_hsmmc.1 /dev/block/bootdevice
     chown system /dev/block/bootdevice/by-name
-    # support K3.4 eMMC links
-    symlink omap/omap_hsmmc.1 /dev/block/platform/omap_hsmmc.1
+    # support K3.0 eMMC links
+    mkdir /dev/block/platform/omap
+    symlink ../omap_hsmmc.1 /dev/block/platform/omap/omap_hsmmc.1
 
 on fs
     mkdir /bootdata
-    mount vfat /dev/block/platform/omap/omap_hsmmc.1/by-name/bootdata /bootdata
+    mount vfat /dev/block/platform/omap_hsmmc.1/by-name/bootdata /bootdata
     exec /sbin/dd if=/dev/zero of=/bootdata/BootCnt bs=1 count=4
 
 on boot
