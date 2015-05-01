@@ -11,7 +11,7 @@ on init
 
     export TERMINFO /system/etc/terminfo
 
-    symlink /dev/block/platform/omap/omap_hsmmc.1 /dev/block/bootdevice
+    symlink /dev/block/platform/omap_hsmmc.1 /dev/block/bootdevice
     chown system /dev/block/bootdevice/by-name
 
     # power management
@@ -102,7 +102,7 @@ on post-fs
     chown system system /sys/class/backlight/lcd-backlight/brightness
 
     # USB ID properties - writable by all for now
-    chmod 0666 /sys/devices/platform/omap/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id
+    chmod 0666 /sys/devices/platform/omap_i2c.1/i2c-1/1-0048/twl6030_usb/usb_id
 
 on post-fs-data
     # make dir for trace
@@ -144,7 +144,7 @@ on property:dev.bootcomplete=1
     write /sys/module/cpu_boost/parameters/input_boost_freq 1100000
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
-    write /sys/devices/platform/omap/pvrsrvkm.0/sgxfreq/frequency_limit 384000000
+    write /sys/devices/platform/pvrsrvkm.0/sgxfreq/frequency_limit 384000000
 
 on property:sys.boot_completed=1
     # Tell dalvik to only use two threads
