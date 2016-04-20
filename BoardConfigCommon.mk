@@ -84,6 +84,14 @@ endif
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 
 ifneq (,$(strip $(wildcard \
+$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*bn-hd*.dts* \
+$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*nookhd*.dts* \
+$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*ovation*.dts \
+$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*hummingbird*.dts)))
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+endif
+
+ifneq (,$(strip $(wildcard \
 $(TARGET_KERNEL_SOURCE)/drivers/gpu/ion/ion_page_pool.c \
 $(TARGET_KERNEL_SOURCE)/drivers/staging/android/ion/ion_page_pool.c)))
 export BOARD_USE_TI_LIBION := false
