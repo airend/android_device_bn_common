@@ -16,4 +16,4 @@ allow fixmac system_file:file x_file_perms;
 allow fixmac kernel:process setsched;
 allow fixmac kernel:system module_request;
 allow fixmac self:udp_socket create_socket_perms;
-allow fixmac self:netlink_socket create_socket_perms;
+allow fixmac self:netlink_socket create_socket_perms_no_ioctl;
