@@ -118,6 +118,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+    wificond \
     wpa_supplicant \
     ti_wfd_libs \
     wpa_supplicant.conf \
