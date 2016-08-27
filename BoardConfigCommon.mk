@@ -190,6 +190,7 @@ WITH_BUSYBOX_LINKS := true
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
+RECOVERY_GRAPHICS_FORCE_SINGLE_BUFFER := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 # For bigger CWM font
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
