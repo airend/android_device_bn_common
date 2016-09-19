@@ -70,7 +70,9 @@ TARGET_KERNEL_VARIANT_CONFIG := $(notdir $(wildcard \
 TARGET_KERNEL_SELINUX_CONFIG := $(notdir $(wildcard \
     $(TARGET_KERNEL_SOURCE)/arch/arm/configs/selinux_defconfig))
 
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := omapfb.fb_opt=-1,-1,-1,1,$(if $(filter \
+    ovation,$(TARGET_DEVICE)),1920$(comma)1280,900$(comma)1440)
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 ifneq (,$(strip $(wildcard \
 $(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*bn-hd*.dts* \
