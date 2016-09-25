@@ -4,9 +4,9 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 /dev/block/platform/omap/omap_hsmmc.1/by-name/system    /system     ext4   ro,errors=panic                                          wait
 /dev/block/platform/omap/omap_hsmmc.1/by-name/userdata  /data       f2fs   rw,nosuid,nodev,noatime,nodiratime,inline_xattr  wait,nonremovable,check,formattable,encryptable=footer,length=-16384
-/dev/block/platform/omap/omap_hsmmc.1/by-name/userdata  /data       ext4   rw,nosuid,nodev,noatime,errors=panic             wait,check,encryptable=footer,length=-16384
+/dev/block/platform/omap/omap_hsmmc.1/by-name/userdata  /data       ext4   rw,nosuid,nodev,noatime,errors=panic             wait,nonremovable,check,formattable,encryptable=footer,length=-16384
 /dev/block/platform/omap/omap_hsmmc.1/by-name/cache     /cache      f2fs   rw,nosuid,nodev,noatime,nodiratime,inline_xattr  wait,nonremovable,check,formattable
-/dev/block/platform/omap/omap_hsmmc.1/by-name/cache     /cache      ext4   rw,nosuid,nodev,noatime,errors=panic             wait,check
+/dev/block/platform/omap/omap_hsmmc.1/by-name/cache     /cache      ext4   rw,nosuid,nodev,noatime,errors=panic             wait,nonremovable,check,formattable
 /dev/block/platform/omap/omap_hsmmc.1/by-name/rom       /rom        vfat   rw,noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007  defaults
 
 # vold-managed volumes ("block device" is actually a sysfs devpath)
