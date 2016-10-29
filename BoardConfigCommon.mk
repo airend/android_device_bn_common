@@ -86,6 +86,9 @@ $(TARGET_KERNEL_SOURCE)/drivers/staging/android/ion/ion_page_pool.c)))
 export BOARD_USE_TI_LIBION := false
 endif
 
+USE_AMAZON_DUCATI := $(if $(shell grep ^CONFIG_USE_AMAZON_DUCATI=y$$ \
+$(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)),true,)
+
 ifeq ($(ARM_EABI_TOOLCHAIN),)
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 KERNEL_TOOLCHAIN := $(subst linux-androideabi,eabi,$(ANDROID_TOOLCHAIN))
