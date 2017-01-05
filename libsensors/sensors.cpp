@@ -49,12 +49,12 @@ static const struct sensor_t sSensorList[] = {
 		.name		= "KXTJ9 3-axis Accelerometer",
 		.vendor		= "Kionix",
 		.version	= 1,
-		.handle		= SENSORS_HANDLE_BASE+ID_A,
+		.handle		= SENSORS_ACCELERATION_HANDLE,
 		.type		= SENSOR_TYPE_ACCELEROMETER,
-		.maxRange	= (8.0f*GRAVITY_EARTH),
-		.resolution	= (8.0f*GRAVITY_EARTH)/2048.0f,
-		.power		= 0.57f,
-		.minDelay	= 0,
+		.maxRange	= GRAVITY_EARTH * 2.0f,
+		.resolution	= GRAVITY_EARTH / 1024.0f,
+		.power		= 0.7f,
+		.minDelay	= 10000,
 		.reserved	= { }
 	},
 };

@@ -49,9 +49,7 @@ __BEGIN_DECLS
 #define EVENT_TYPE_ACCEL_Z          ABS_Z
 #define EVENT_TYPE_ACCEL_STATUS     ABS_THROTTLE
 
-// 1000 LSG = 1G
-#define LSG                         (1000.0f)
-
+#define LSG                         (1024.0f)
 
 // conversion of acceleration data to SI units (m/s^2)
 #define CONVERT_A                   (GRAVITY_EARTH / LSG)
