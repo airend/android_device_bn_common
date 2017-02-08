@@ -30,7 +30,7 @@
 #include <cutils/log.h>
 
 #include "nusensors.h"
-#include "Kxtf9.h"
+#include "Kxtj9.h"
 /*****************************************************************************/
 
 struct sensors_poll_context_t {
@@ -44,7 +44,7 @@ struct sensors_poll_context_t {
 
 private:
     enum {
-        kxtf9           = 0,
+        kxtj9           = 0,
         numSensorDrivers,
         numFds,
     };
@@ -58,7 +58,7 @@ private:
     int handleToDriver(int handle) const {
         switch (handle) {
             case ID_A:
-            	return kxtf9;
+                return kxtj9;
         }
         return -EINVAL;
     }
@@ -68,10 +68,10 @@ private:
 
 sensors_poll_context_t::sensors_poll_context_t()
 {
-    mSensors[kxtf9] = new Kxtf9Sensor();
-    mPollFds[kxtf9].fd = mSensors[kxtf9]->getFd();
-    mPollFds[kxtf9].events = POLLIN;
-    mPollFds[kxtf9].revents = 0;
+    mSensors[kxtj9] = new Kxtj9Sensor();
+    mPollFds[kxtj9].fd = mSensors[kxtj9]->getFd();
+    mPollFds[kxtj9].events = POLLIN;
+    mPollFds[kxtj9].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);

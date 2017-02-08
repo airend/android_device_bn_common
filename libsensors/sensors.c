@@ -32,7 +32,7 @@
 
 static const struct sensor_t sSensorList[] = {
         {
-		.name		= "KXTF9 3-axis Accelerometer",
+		.name		= "KXTJ9 3-axis Accelerometer",
 		.vendor		= "Kionix",
 		.version	= 1,
 		.handle		= SENSORS_HANDLE_BASE+ID_A,

@@ -47,7 +47,7 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 /*****************************************************************************/
 
-#define KXTF9_DEVICE_NAME      "/dev"
+#define KXTJ9_DEVICE_NAME      "/dev"
 
 #define EVENT_TYPE_ACCEL_X          ABS_X
 #define EVENT_TYPE_ACCEL_Y          ABS_Y
