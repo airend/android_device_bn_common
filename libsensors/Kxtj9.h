@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_KXTF9_SENSOR_H
-#define ANDROID_KXTF9_SENSOR_H
+#ifndef ANDROID_KXTJ9_SENSOR_H
+#define ANDROID_KXTJ9_SENSOR_H
 
 #include <stdint.h>
 #include <errno.h>
@@ -27,17 +27,17 @@
 #include "SensorBase.h"
 #include "InputEventReader.h"
 
-#define KXTF9_ENABLE_FILE "/sys/bus/i2c/drivers/kxtf9/1-000e/enable"
-#define KXTF9_DELAY_FILE  "/sys/bus/i2c/drivers/kxtf9/1-000e/delay"
+#define KXTJ9_ENABLE_FILE "/sys/bus/i2c/drivers/kxtj9/1-000e/enable"
+#define KXTJ9_DELAY_FILE  "/sys/bus/i2c/drivers/kxtj9/1-000e/poll"
 
 /*****************************************************************************/
 
 struct input_event;
 
-class Kxtf9Sensor : public SensorBase {
+class Kxtj9Sensor : public SensorBase {
 public:
-            Kxtf9Sensor();
-    virtual ~Kxtf9Sensor();
+            Kxtj9Sensor();
+    virtual ~Kxtj9Sensor();
 
     virtual int setDelay(int32_t handle, int64_t ns);
     virtual int enable(int32_t handle, int enabled);
@@ -54,4 +54,4 @@ private:
 
 /*****************************************************************************/
 
-#endif  // ANDROID_AKM_SENSOR_H
+#endif  // ANDROID_KXTJ9_SENSOR_H

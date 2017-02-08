@@ -33,7 +33,7 @@ LOCAL_SRC_FILES := \
 	nusensors.cpp \
 	InputEventReader.cpp \
 	SensorBase.cpp \
-	Kxtf9.cpp
+	Kxtj9.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libutils
 

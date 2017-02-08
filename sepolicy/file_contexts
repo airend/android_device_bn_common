@@ -8,7 +8,7 @@
 /dev/akm8975_aot                         u:object_r:sensors_device:s0
 /dev/akm8975_dev                         u:object_r:sensors_device:s0
 /dev/ct405                               u:object_r:sensors_device:s0
-/dev/kxtf9                               u:object_r:sensors_device:s0
+/dev/kxtj9                               u:object_r:sensors_device:s0
 /dev/msp430                              u:object_r:sensors_device:s0
 /dev/isl29030                            u:object_r:sensors_device:s0
 

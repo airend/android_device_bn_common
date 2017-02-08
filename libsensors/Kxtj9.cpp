@@ -26,12 +26,12 @@
 
 #include <cutils/log.h>
 
-#include "Kxtf9.h"
+#include "Kxtj9.h"
 
 /*****************************************************************************/
 
-Kxtf9Sensor::Kxtf9Sensor()
-: SensorBase(KXTF9_DEVICE_NAME, "kxtf9_accel"),
+Kxtj9Sensor::Kxtj9Sensor()
+: SensorBase(KXTJ9_DEVICE_NAME, "kxtj9_accel"),
       mEnabled(0),
       mInputReader(32)
 {
@@ -44,10 +44,10 @@ Kxtf9Sensor::Kxtf9Sensor()
     mEnabled = isEnabled();
 }
 
-Kxtf9Sensor::~Kxtf9Sensor() {
+Kxtj9Sensor::~Kxtj9Sensor() {
 }
 
-int Kxtf9Sensor::enable(int32_t handle, int en)
+int Kxtj9Sensor::enable(int32_t handle, int en)
 {
     int err = 0;
 
@@ -59,7 +59,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
     }
 
     // ok we need to set our enabled state
-    int fd = open(KXTF9_ENABLE_FILE, O_WRONLY);
+    int fd = open(KXTJ9_ENABLE_FILE, O_WRONLY);
     if(fd >= 0) {
         char buffer[20];
         int bytes = sprintf(buffer, "%d\n", newState);
@@ -70,7 +70,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
         err = -errno;
     }
 
-    ALOGE_IF(err < 0, "Error setting enable of kxtf9 accelerometer (%s)", strerror(-err));
+    ALOGE_IF(err < 0, "Error setting enable of kxtj9 accelerometer (%s)", strerror(-err));
 
     if (!err) {
         mEnabled = newState;
@@ -80,7 +80,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
     return err;
 }
 
-int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
+int Kxtj9Sensor::setDelay(int32_t handle, int64_t ns)
 {
     int err = 0;
 
@@ -91,7 +91,7 @@ int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
         unsigned long delay = ns / 1000000;
 
         // ok we need to set our enabled state
-        int fd = open(KXTF9_DELAY_FILE, O_WRONLY);
+        int fd = open(KXTJ9_DELAY_FILE, O_WRONLY);
         if(fd >= 0) {
             char buffer[20];
             int bytes = sprintf(buffer, "%d\n", delay);
@@ -102,13 +102,13 @@ int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
             err = -errno;
         }
 
-        ALOGE_IF(err < 0, "Error setting delay of kxtf9 accelerometer (%s)", strerror(-err));
+        ALOGE_IF(err < 0, "Error setting delay of kxtj9 accelerometer (%s)", strerror(-err));
     }
 
     return err;
 }
 
-int Kxtf9Sensor::readEvents(sensors_event_t* data, int count)
+int Kxtj9Sensor::readEvents(sensors_event_t* data, int count)
 {
     if (count < 1)
         return -EINVAL;
@@ -122,7 +122,7 @@ int Kxtf9Sensor::readEvents(sensors_event_t* data, int count)
 
     while (count && mInputReader.readEvent(&event)) {
         int type = event->type;
-        if (type == EV_REL) {
+        if ((type == EV_ABS) || (type == EV_REL)) {
             processEvent(event->code, event->value);
         } else if (type == EV_SYN) {
             mPendingEvent.timestamp = getTimestamp();
@@ -130,7 +130,7 @@ int Kxtf9Sensor::readEvents(sensors_event_t* data, int count)
             count--;
             numEventReceived++;
         } else {
-            ALOGE("Kxtf9: unknown event (type=%d, code=%d)",
+            ALOGE("Kxtj9: unknown event (type=%d, code=%d)",
                     type, event->code);
         }
         mInputReader.next();
@@ -139,14 +139,14 @@ int Kxtf9Sensor::readEvents(sensors_event_t* data, int count)
     return numEventReceived;
 }
 
-void Kxtf9Sensor::processEvent(int code, int value)
+void Kxtj9Sensor::processEvent(int code, int value)
 {
     switch (code) {
         case EVENT_TYPE_ACCEL_X:
             mPendingEvent.acceleration.x = -value * CONVERT_A_X;
             break;
         case EVENT_TYPE_ACCEL_Y:
-            mPendingEvent.acceleration.y = value * CONVERT_A_Y;
+            mPendingEvent.acceleration.y = -value * CONVERT_A_Y;
             break;
         case EVENT_TYPE_ACCEL_Z:
             mPendingEvent.acceleration.z = -value * CONVERT_A_Z;
@@ -154,9 +154,9 @@ void Kxtf9Sensor::processEvent(int code, int value)
     }
 }
 
-int Kxtf9Sensor::isEnabled()
+int Kxtj9Sensor::isEnabled()
 {
-    int fd = open(KXTF9_ENABLE_FILE, O_RDONLY);
+    int fd = open(KXTJ9_ENABLE_FILE, O_RDONLY);
     if (fd >= 0) {
         char buffer[20];
         int amt = read(fd, buffer, 20);
@@ -164,11 +164,11 @@ int Kxtf9Sensor::isEnabled()
         if(amt > 0) {
             return (buffer[0] == '1');
         } else {
-            ALOGE("Kxtf9: isEnable failed to read (%s)", strerror(errno));
+            ALOGE("Kxtj9: isEnable failed to read (%s)", strerror(errno));
             return 0;
         }
     } else {
-        ALOGE("Kxtf9: isEnabled failed to open %s", KXTF9_ENABLE_FILE);
+        ALOGE("Kxtj9: isEnabled failed to open %s", KXTJ9_ENABLE_FILE);
         return 0;
     }
 }
