@@ -95,8 +95,8 @@ on post-fs
     # sensor/i2c/backlight permissions
     chown system system /sys/bus/i2c/drivers/ft5x06/3-0038/wmreg
     chown system system /sys/bus/i2c/drivers/ft5x06/3-0038/wmval
-    chown system system /sys/bus/i2c/drivers/kxtf9/1-000e/delay
-    chown system system /sys/bus/i2c/drivers/kxtf9/1-000e/enable
+    chown system system /sys/bus/i2c/drivers/kxtj9/1-000e/poll
+    chown system system /sys/bus/i2c/drivers/kxtj9/1-000e/enable
 
     # use the path below for lcd brightness control
     chown system system /sys/class/backlight/lcd-backlight/brightness
