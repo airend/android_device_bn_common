@@ -31,10 +31,11 @@ class SensorBase {
 protected:
     const char* dev_name;
     const char* data_name;
+    char        input_name[PATH_MAX];
     int         dev_fd;
     int         data_fd;
 
-    static int openInput(const char* inputName);
+    int openInput(const char* inputName);
     static int64_t getTimestamp();
 
 
@@ -44,6 +45,9 @@ protected:
 
     int open_device();
     int close_device();
+	int write_int(char const *path, int value);
+	int write_sys_attribute(
+		char const *path, char const *value, int bytes);
 
 public:
             SensorBase(
@@ -55,8 +59,14 @@ public:
     virtual int readEvents(sensors_event_t* data, int count) = 0;
     virtual bool hasPendingEvents() const;
     virtual int getFd() const;
+
     virtual int setDelay(int32_t handle, int64_t ns);
-    virtual int enable(int32_t handle, int enabled) = 0;
+    virtual int64_t getDelay(int32_t handle);
+
+	/* When this function is called, increments the reference counter. */
+    virtual int setEnable(int32_t handle, int enabled) = 0;
+	/* It returns the number of reference. */
+    virtual int getEnable(int32_t handle) = 0;
 };
 
 /*****************************************************************************/

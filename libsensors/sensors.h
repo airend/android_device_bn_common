@@ -31,11 +31,7 @@ __BEGIN_DECLS
 
 /*****************************************************************************/
 
-int init_nusensors(hw_module_t const* module, hw_device_t** device);
-
-/*****************************************************************************/
-
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
 #define ID_A  (0)
 
@@ -47,12 +43,11 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 /*****************************************************************************/
 
-#define KXTJ9_DEVICE_NAME      "/dev"
-
+/* For KXTJ9 */
 #define EVENT_TYPE_ACCEL_X          ABS_X
 #define EVENT_TYPE_ACCEL_Y          ABS_Y
 #define EVENT_TYPE_ACCEL_Z          ABS_Z
-#define EVENT_TYPE_ACCEL_STATUS     ABS_WHEEL
+#define EVENT_TYPE_ACCEL_STATUS     ABS_THROTTLE
 
 // 1000 LSG = 1G
 #define LSG                         (1000.0f)
@@ -60,9 +55,6 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 // conversion of acceleration data to SI units (m/s^2)
 #define CONVERT_A                   (GRAVITY_EARTH / LSG)
-#define CONVERT_A_X                 (CONVERT_A)
-#define CONVERT_A_Y                 (CONVERT_A)
-#define CONVERT_A_Z                 (CONVERT_A)
 
 #define SENSOR_STATE_MASK           (0x7FFF)
 

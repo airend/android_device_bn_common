@@ -18,9 +18,9 @@
 #include <errno.h>
 #include <math.h>
 #include <poll.h>
+#include <string.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <string.h>
 #include <sys/select.h>
 
 #include <cutils/log.h>
@@ -37,7 +37,9 @@ SensorBase::SensorBase(
     : dev_name(dev_name), data_name(data_name),
       dev_fd(-1), data_fd(-1)
 {
-    data_fd = openInput(data_name);
+    if (data_name) {
+        data_fd = openInput(data_name);
+    }
 }
 
 SensorBase::~SensorBase() {
@@ -65,11 +67,38 @@ int SensorBase::close_device() {
     return 0;
 }
 
+int SensorBase::write_sys_attribute(
+	const char *path, const char *value, int bytes)
+{
+    int fd, amt;
+
+	fd = open(path, O_WRONLY);
+    if (fd < 0) {
+        ALOGE("SensorBase: write_attr failed to open %s (%s)",
+			path, strerror(errno));
+        return -1;
+	}
+
+    amt = write(fd, value, bytes);
+	amt = ((amt == -1) ? -errno : 0);
+	ALOGE_IF(amt < 0, "SensorBase: write_int failed to write %s (%s)",
+		path, strerror(errno));
+    close(fd);
+	return amt;
+}
+
 int SensorBase::getFd() const {
+    if (!data_name) {
+        return dev_fd;
+    }
     return data_fd;
 }
 
 int SensorBase::setDelay(int32_t handle, int64_t ns) {
+    return 0;
+}
+
+int64_t SensorBase::getDelay(int32_t handle) {
     return 0;
 }
 
@@ -110,6 +139,7 @@ int SensorBase::openInput(const char* inputName) {
                 name[0] = '\0';
             }
             if (!strcmp(name, inputName)) {
+                strcpy(input_name, filename);
                 break;
             } else {
                 close(fd);

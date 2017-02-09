@@ -13,25 +13,81 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_NDEBUG 0
+
+#define LOG_TAG "Sensors"
+
 #include <hardware/sensors.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <dirent.h>
-#include <string.h>
 #include <math.h>
-
 #include <poll.h>
 #include <pthread.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <linux/input.h>
 
-#include <cutils/atomic.h>
-#include <cutils/log.h>
+#include <utils/Atomic.h>
+#include <utils/Log.h>
 
-#include "nusensors.h"
-#include "Kxtj9.h"
+#include "sensors.h"
+
+#include "KionixSensor.h"
+
 /*****************************************************************************/
+
+#define SENSORS_ACCELERATION     (1<<ID_A)
+
+#define SENSORS_ACCELERATION_HANDLE     0
+
+/*****************************************************************************/
+
+/* The SENSORS Module */
+static const struct sensor_t sSensorList[] = {
+        {
+		.name		= "KXTJ9 3-axis Accelerometer",
+		.vendor		= "Kionix",
+		.version	= 1,
+		.handle		= SENSORS_HANDLE_BASE+ID_A,
+		.type		= SENSOR_TYPE_ACCELEROMETER,
+		.maxRange	= (8.0f*GRAVITY_EARTH),
+		.resolution	= (8.0f*GRAVITY_EARTH)/2048.0f,
+		.power		= 0.57f,
+		.minDelay	= 0,
+		.reserved	= { }
+	},
+};
+
+
+static int open_sensors(const struct hw_module_t* module, const char* id,
+                        struct hw_device_t** device);
+
+static int sensors__get_sensors_list(struct sensors_module_t* module,
+                                     struct sensor_t const** list)
+{
+    *list = sSensorList;
+    return ARRAY_SIZE(sSensorList);
+}
+
+static struct hw_module_methods_t sensors_module_methods = {
+    .open = open_sensors
+};
+
+struct sensors_module_t HAL_MODULE_INFO_SYM = {
+    .common = {
+        .tag = HARDWARE_MODULE_TAG,
+        .version_major = 1,
+        .version_minor = 0,
+        .id = SENSORS_HARDWARE_MODULE_ID,
+        .name = "B&N Nook HD Sensors Module",
+        .author = "Asahi Kasei Microdevices",
+        .methods = &sensors_module_methods,
+        .dso  = NULL,
+        .reserved = {0},
+    },
+    .get_sensors_list = sensors__get_sensors_list
+};
 
 struct sensors_poll_context_t {
     struct sensors_poll_device_t device; // must be first
@@ -40,11 +96,12 @@ struct sensors_poll_context_t {
         ~sensors_poll_context_t();
     int activate(int handle, int enabled);
     int setDelay(int handle, int64_t ns);
+    int setDelay_sub(int handle, int64_t ns);
     int pollEvents(sensors_event_t* data, int count);
 
 private:
     enum {
-        kxtj9           = 0,
+        acc          = 0,
         numSensorDrivers,
         numFds,
     };
@@ -55,23 +112,22 @@ private:
     int mWritePipeFd;
     SensorBase* mSensors[numSensorDrivers];
 
-    int handleToDriver(int handle) const {
-        switch (handle) {
-            case ID_A:
-                return kxtj9;
-        }
-        return -EINVAL;
-    }
+	/* These function will be different depends on
+	 * which sensor is implemented in AKMD program.
+	 */
+    int handleToDriver(int handle);
+	int proxy_enable(int handle, int enabled);
+	int proxy_setDelay(int handle, int64_t ns);
 };
 
 /*****************************************************************************/
 
 sensors_poll_context_t::sensors_poll_context_t()
 {
-    mSensors[kxtj9] = new Kxtj9Sensor();
-    mPollFds[kxtj9].fd = mSensors[kxtj9]->getFd();
-    mPollFds[kxtj9].events = POLLIN;
-    mPollFds[kxtj9].revents = 0;
+    mSensors[acc] = new KionixSensor();
+    mPollFds[acc].fd = mSensors[acc]->getFd();
+    mPollFds[acc].events = POLLIN;
+    mPollFds[acc].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);
@@ -93,11 +149,19 @@ sensors_poll_context_t::~sensors_poll_context_t() {
     close(mWritePipeFd);
 }
 
+int sensors_poll_context_t::handleToDriver(int handle) {
+	return (handle == ID_A) ? acc : -EINVAL;
+}
+
 int sensors_poll_context_t::activate(int handle, int enabled) {
-    int index = handleToDriver(handle);
-    ALOGD("sensor activation called: handle=%d, enabled=%d********************************", handle, enabled);
-    if (index < 0) return index;
-    int err =  mSensors[index]->enable(handle, enabled);
+	int drv = handleToDriver(handle);
+	int err;
+
+	if (handle != ID_A)
+		return -EINVAL;
+
+	err = mSensors[drv]->setEnable(handle, enabled);
+
     if (enabled && !err) {
         const char wakeMessage(WAKE_MESSAGE);
         int result = write(mWritePipeFd, &wakeMessage, 1);
@@ -107,10 +171,12 @@ int sensors_poll_context_t::activate(int handle, int enabled) {
 }
 
 int sensors_poll_context_t::setDelay(int handle, int64_t ns) {
+	int drv = handleToDriver(handle);
 
-    int index = handleToDriver(handle);
-    if (index < 0) return index;
-    return mSensors[index]->setDelay(handle, ns);
+	if (handle != ID_A)
+		return -EINVAL;
+
+    return mSensors[drv]->setDelay(handle, ns);
 }
 
 int sensors_poll_context_t::pollEvents(sensors_event_t* data, int count)
@@ -188,11 +254,13 @@ static int poll__poll(struct sensors_poll_device_t *dev,
 
 /*****************************************************************************/
 
-int init_nusensors(hw_module_t const* module, hw_device_t** device)
+/** Open a new instance of a sensor device using name */
+static int open_sensors(const struct hw_module_t* module, const char* id,
+                        struct hw_device_t** device)
 {
     int status = -EINVAL;
-
     sensors_poll_context_t *dev = new sensors_poll_context_t();
+
     memset(&dev->device, 0, sizeof(sensors_poll_device_t));
 
     dev->device.common.tag = HARDWARE_DEVICE_TAG;
@@ -205,5 +273,6 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device)
 
     *device = &dev->device.common;
     status = 0;
+
     return status;
 }

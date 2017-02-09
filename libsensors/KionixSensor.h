@@ -14,44 +14,44 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_KXTJ9_SENSOR_H
-#define ANDROID_KXTJ9_SENSOR_H
+#ifndef ANDROID_KIONIX_SENSOR_H
+#define ANDROID_KIONIX_SENSOR_H
 
 #include <stdint.h>
 #include <errno.h>
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
-
-#include "nusensors.h"
+#include "sensors.h"
 #include "SensorBase.h"
 #include "InputEventReader.h"
-
-#define KXTJ9_ENABLE_FILE "/sys/bus/i2c/drivers/kxtj9/1-000e/enable"
-#define KXTJ9_DELAY_FILE  "/sys/bus/i2c/drivers/kxtj9/1-000e/poll"
 
 /*****************************************************************************/
 
 struct input_event;
 
-class Kxtj9Sensor : public SensorBase {
-public:
-            Kxtj9Sensor();
-    virtual ~Kxtj9Sensor();
-
-    virtual int setDelay(int32_t handle, int64_t ns);
-    virtual int enable(int32_t handle, int enabled);
-    virtual int readEvents(sensors_event_t* data, int count);
-    void processEvent(int code, int value);
-
-private:
-    uint32_t mEnabled;
+class KionixSensor : public SensorBase {
+    int mEnabled;
+	int64_t mDelay;
     InputEventCircularReader mInputReader;
     sensors_event_t mPendingEvent;
+    bool mHasPendingEvent;
+    char input_sysfs_path[PATH_MAX];
+    int input_sysfs_path_len;
 
-    int isEnabled();
+    int setInitialState();
+
+public:
+            KionixSensor();
+    virtual ~KionixSensor();
+    virtual int readEvents(sensors_event_t* data, int count);
+    virtual bool hasPendingEvents() const;
+    virtual int setDelay(int32_t handle, int64_t ns);
+    virtual int setEnable(int32_t handle, int enabled);
+    virtual int64_t getDelay(int32_t handle);
+    virtual int getEnable(int32_t handle);
 };
 
 /*****************************************************************************/
 
-#endif  // ANDROID_KXTJ9_SENSOR_H
+#endif  // ANDROID_KIONIX_SENSOR_H
