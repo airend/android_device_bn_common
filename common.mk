@@ -162,9 +162,6 @@ PRODUCT_PACKAGES += \
     sh
 
 PRODUCT_AAPT_PREF_CONFIG := hdpi
-# BT
-PRODUCT_PACKAGES += \
-    libbt-vendor
 
 # Prebuilts /system/etc
 PRODUCT_COPY_FILES += \
