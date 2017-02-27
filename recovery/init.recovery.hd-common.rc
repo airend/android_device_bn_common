@@ -18,6 +18,9 @@ on fs
     exec /sbin/dd if=/dev/zero of=/bootdata/BootCnt bs=1 count=4
 
 on boot
+    # kxtj9_accel is blacklisted; disable it too
+    write /sys/devices/platform/omap_i2c.1/i2c-1/1-000e/enable 0
+
     write /sys/class/android_usb/android0/idVendor ${usb.vendor}
     write /sys/class/android_usb/android0/idProduct ${usb.product.mtpadb}
 
