@@ -19,3 +19,5 @@ allow init pds_file:file { write create setattr };
 allow init vfat:dir { read open search write add_name };
 allow init vfat:file { read open create write getattr setattr };
 
+# enable_off_mode
+allow init debugfs:file rw_file_perms;
