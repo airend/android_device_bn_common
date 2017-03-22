@@ -59,6 +59,13 @@ on post-fs
     insmod /system/lib/modules/mac80211.ko
     insmod /system/lib/modules/wl12xx.ko
 
+    # UIM before TI_ST core
+    start uim
+
+    insmod /system/lib/modules/st_drv.ko
+    insmod /system/lib/modules/tty_hci.ko
+    insmod /system/lib/modules/btwilink.ko
+
     # change /dev/hdcp owner and permission for FQC test
     chown system system /dev/hdcp
     chmod 0666 /dev/hdcp
@@ -154,10 +161,11 @@ service fixmac /system/bin/fix-mac.sh
 
 #shared transport user space mgr service for Bluetooth, FM and GPS
 service uim /system/bin/uim-sysfs
-    class main
+    class core
     seclabel u:r:uim:s0
     user root
     group bluetooth net_bt_admin
+    disabled
 
 service install_keybox /system/bin/install_wv_keybox
     disabled
