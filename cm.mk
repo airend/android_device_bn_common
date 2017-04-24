@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE_PACKAGE_OVERLAYS += device/bn/common/overlay/cm
+COMMON_FOLDER := device/bn/common
 
+DEVICE_PACKAGE_OVERLAYS += $(COMMON_FOLDER)/overlay/cm
+
+TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_FOLDER)/recovery/extensions
+
+# Device & filesystem
+PRODUCT_PACKAGES += \
+    resize2fs_static
