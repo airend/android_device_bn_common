@@ -130,6 +130,7 @@ PRODUCT_PACKAGES += \
     sdcard \
     setup_fs \
     e2fsck \
+    resize2fs_static \
     mkfs.f2fs \
     fsck.f2fs \
     fibmap.f2fs
