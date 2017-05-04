@@ -22,4 +22,9 @@
     <!-- Default for UI touch sounds disabled to solve wakelock issue -->
     <integer name="def_lockscreen_sounds_enabled">0</integer>
     <bool name="def_sound_effects_enabled">false</bool>
+
+    <!-- Nougat started enabling BT by default -->
+    <bool name="def_bluetooth_on">false</bool>
+    <!-- GApps Setup Wizard needs this on -->
+    <bool name="def_wifi_on">true</bool>
 </resources>
