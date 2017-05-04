@@ -63,8 +63,8 @@ PRODUCT_COPY_FILES += \
 
 #ifdef USES_TI_MAC80211
 # Permissions
-#PRODUCT_COPY_FILES += \
-#    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 #endif
 
 ADDITIONAL_BUILD_PROPERTIES += \
