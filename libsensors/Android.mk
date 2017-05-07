@@ -35,7 +35,7 @@ LOCAL_SRC_FILES := \
 	SensorBase.cpp \
 	Kxtf9.cpp
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils
+LOCAL_SHARED_LIBRARIES := liblog libutils
 
 include $(BUILD_SHARED_LIBRARY)
 
