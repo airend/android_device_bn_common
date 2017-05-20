@@ -202,6 +202,9 @@ service smc_pa /system/bin/smc_pa_ctrl \
 on property:init.svc.smc_pa=stopped
     start tf_daemon
 
+on property:wlan.driver.status=ok
+    chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
+
 on property:init.svc.bootanim=stopped
 
 service p2p_supplicant /system/bin/wpa_supplicant \
