@@ -62,7 +62,13 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     $(call add-to-product-copy-files-if-exists,packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml)
 
-ADDITIONAL_BUILD_PROPERTIES += \
+# adb has root
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.secure=0 \
+    ro.allow.mock.location=0 \
+    ro.debuggable=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     com.ti.omap_enhancement=true \
     omap.enhancement=true \
@@ -80,19 +86,19 @@ ADDITIONAL_BUILD_PROPERTIES += \
     telephony.sms.send=false
 
 # Enable scissor optimisation/override commonized setting
-ADDITIONAL_BUILD_PROPERTIES += ro.hwui.disable_scissor_opt=false
+PRODUCT_PROPERTY_OVERRIDES += ro.hwui.disable_scissor_opt=false
 
 # Disable the AssetAtlas service - may use more RAM than it saves
-ADDITIONAL_BUILD_PROPERTIES += config.disable_atlas=true
+PRODUCT_PROPERTY_OVERRIDES += config.disable_atlas=true
 
 # Avoids retrying for an EGL config w/o EGL_SWAP_BEHAVIOR_PRESERVED
-ADDITIONAL_BUILD_PROPERTIES += debug.hwui.render_dirty_regions=false
+PRODUCT_PROPERTY_OVERRIDES += debug.hwui.render_dirty_regions=false
 
 PRODUCT_CHARACTERISTICS := tablet
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
-ADDITIONAL_BUILD_PROPERTIES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
 
