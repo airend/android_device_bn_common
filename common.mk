@@ -161,6 +161,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 # BT
 PRODUCT_PACKAGES += \
     uim-sysfs \
+    android.hardware.bluetooth@1.0-impl \
     libbt-vendor
 
 # Prebuilts /system/etc
@@ -187,8 +188,12 @@ PRODUCT_PACKAGES += USBHostSwitcher
 # Hardware HALs
 PRODUCT_PACKAGES += \
     hwcomposer.$(TARGET_BOOTLOADER_BOARD_NAME) \
+    android.hardware.light@2.0-impl \
     lights.$(TARGET_BOOTLOADER_BOARD_NAME) \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
     audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME) \
+    android.hardware.sensors@1.0-impl \
     sensors.$(TARGET_BOOTLOADER_BOARD_NAME) \
     audio.hdmi.$(TARGET_BOOTLOADER_BOARD_NAME)
 
