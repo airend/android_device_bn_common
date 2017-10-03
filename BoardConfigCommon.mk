@@ -192,6 +192,8 @@ TARGET_NO_SEPARATE_RECOVERY := true
 # SELinux stuff
 BOARD_SEPOLICY_DIRS += device/bn/common/sepolicy
 
+DEVICE_MANIFEST_FILE += $(COMMON_FOLDER)/manifest.xml
+
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
