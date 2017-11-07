@@ -64,6 +64,8 @@ else
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 endif
 
+# Binder API version
+TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
