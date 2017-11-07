@@ -57,6 +57,9 @@ BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wl12xx
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
+# Binder API version
+TARGET_USES_64_BIT_BINDER := true
+
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 TARGET_NO_RADIOIMAGE := true
