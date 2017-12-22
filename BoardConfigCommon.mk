@@ -114,8 +114,10 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_
 # Disable journaling on system.img to save space
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 
-# Only pre-optimize the boot image
-WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+# Don't dex preopt apps to avoid I/O congestion due to paging larger sized
+# pre-compiled .odex files as opposed to background generated interpret-only
+# odex files. Also, save on precious system space.
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
 
 # Configure jemalloc for low-memory
 MALLOC_SVELTE := true
