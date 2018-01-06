@@ -93,10 +93,6 @@ PRODUCT_PROPERTY_OVERRIDES += config.disable_atlas=true
 # Avoids retrying for an EGL config w/o EGL_SWAP_BEHAVIOR_PRESERVED
 PRODUCT_PROPERTY_OVERRIDES += debug.hwui.render_dirty_regions=false
 
-# Default OMX service to non-Treble
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.media.treble_omx=false
-
 PRODUCT_CHARACTERISTICS := tablet
 
 # enable Google-specific location features,
