@@ -73,7 +73,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.nf.level=512 \
     persist.hwc.bltpolicy=0 \
     lockscreen.rot_override=true \
-    ro.bq.gpu_to_cpu_unsupported=1 \
     ro.disableWifiApFirmwareReload=true \
     media.stagefright.cache-params=18432/20480/15 \
     ro.ksm.default=1 \
