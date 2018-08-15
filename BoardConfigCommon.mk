@@ -66,15 +66,9 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_SOURCE := kernel/bn/omap
-ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/arch/arm/configs/android_omap4_defconfig)))
-TARGET_KERNEL_CONFIG := android_omap4_defconfig
-endif
-ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/arch/arm/configs/android_bn-hd_defconfig)))
-TARGET_KERNEL_CONFIG := android_bn-hd_defconfig
-endif
-ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/arch/arm/configs/selinux_defconfig)))
-TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
-endif
+TARGET_KERNEL_CONFIG := nookhd_defconfig
+TARGET_KERNEL_SELINUX_CONFIG := $(notdir $(wildcard \
+    $(TARGET_KERNEL_SOURCE)/arch/arm/configs/selinux_defconfig))
 
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 
