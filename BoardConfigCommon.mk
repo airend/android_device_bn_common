@@ -177,6 +177,7 @@ TARGET_NO_SEPARATE_RECOVERY := true
 
 # SELinux stuff
 BOARD_SEPOLICY_DIRS += device/bn/common/sepolicy
+BOARD_SEPOLICY_M4DEFS += vensys=\(vendor\|system/vendor\)
 
 DEVICE_MANIFEST_FILE += $(COMMON_FOLDER)/manifest.xml
 
