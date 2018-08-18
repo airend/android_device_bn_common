@@ -49,6 +49,7 @@
 
 # System binaries
 /system/bin/clear_bootcnt.sh             u:object_r:bootcnt_exec:s0
+/vensys/bin/init.pre-rb.sh               u:object_r:bootcnt_exec:s0
 /system/bin/fix-mac.sh                   u:object_r:fixmac_exec:s0
 /system/bin/smc_pa_ctrl                  u:object_r:smc_pa_exec:s0
 /system/bin/tf_daemon                    u:object_r:tee_exec:s0

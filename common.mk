@@ -211,6 +211,7 @@ endif
 # Clears the boot counter, update mac address on first start
 PRODUCT_COPY_FILES += \
         $(COMMON_FOLDER)/prebuilt/bin/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh \
+        $(COMMON_FOLDER)/prebuilt/bin/init.pre-rb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.pre-rb.sh \
 	$(COMMON_FOLDER)/prebuilt/bin/fix-mac.sh:/system/bin/fix-mac.sh
 
 # Art

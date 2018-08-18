@@ -150,6 +150,9 @@ on property:sys.boot_completed=1
     setprop dalvik.vm.dex2oat-threads 2
     setprop dalvik.vm.image-dex2oat-threads 2
 
+on shutdown
+    start vendor.pre-rb
+
 service fixmac /system/bin/fix-mac.sh
     class core
     user root
@@ -170,6 +173,13 @@ service install_keybox /system/bin/install_wv_keybox
 
 service bootcnt /system/bin/clear_bootcnt.sh
     class core
+    user root
+    group root
+    disabled
+    oneshot
+
+service vendor.pre-rb /vendor/bin/init.pre-rb.sh ${sys.powerctl}
+    class main
     user root
     group root
     disabled
