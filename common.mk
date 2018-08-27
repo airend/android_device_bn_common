@@ -181,6 +181,10 @@ PRODUCT_COPY_FILES += \
 # USB Host app switcher
 PRODUCT_PACKAGES += USBHostSwitcher
 
+# USB HAL service
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # Hardware HALs
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
