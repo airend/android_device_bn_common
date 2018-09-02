@@ -67,6 +67,8 @@ TARGET_NO_BOOTLOADER := true
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_SOURCE := kernel/bn/omap
 TARGET_KERNEL_CONFIG := nookhd_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := $(notdir $(wildcard \
+    $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_DEVICE)_defconfig))
 TARGET_KERNEL_SELINUX_CONFIG := $(notdir $(wildcard \
     $(TARGET_KERNEL_SOURCE)/arch/arm/configs/selinux_defconfig))
 
