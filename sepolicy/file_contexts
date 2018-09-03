@@ -45,12 +45,13 @@
 /dev/rfkill                              u:object_r:rfkill_device:s0
 
 # tee
-/dev/tf_ctrl                             u:object_r:tee_device:s0
+/dev/tf_(ctrl|driver)                    u:object_r:tee_device:s0
 
 # System binaries
 /system/bin/clear_bootcnt.sh             u:object_r:bootcnt_exec:s0
 /system/bin/fix-mac.sh                   u:object_r:fixmac_exec:s0
 /system/bin/smc_pa_ctrl                  u:object_r:smc_pa_exec:s0
+/system/bin/tf_daemon                    u:object_r:tee_exec:s0
 /system/bin/setup_fs                     u:object_r:setup_fs_exec:s0
 /system/bin/uim-sysfs                    u:object_r:uim_exec:s0
 /system/vendor/bin/pvrsrvinit            u:object_r:pvrsrvinit_exec:s0
