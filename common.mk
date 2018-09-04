@@ -164,8 +164,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 # BT
 PRODUCT_PACKAGES += \
-    uim-sysfs \
-    android.hardware.bluetooth@1.0-impl \
     libbt-vendor
 
 # Prebuilts /system/etc
@@ -223,7 +221,7 @@ $(call inherit-product-if-exists, vendor/bn/hd-common/hd-common-vendor.mk)
 $(call inherit-product-if-exists, vendor/widevine/arm-generic/widevine-vendor.mk)
 $(call inherit-product, hardware/ti/wlan/mac80211/wl127x-wlan-products.mk)
 $(call inherit-product, hardware/ti/wlan/mac80211/wl12xx-wlan-modules.mk)
-$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
+$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-hidl.mk)
 
 ifneq (,$(strip $(wildcard vendor/google/build/opengapps-packages.mk)))
 $(call inherit-product, vendor/google/build/opengapps-packages.mk)

@@ -23,6 +23,8 @@ GAPPS_VARIANT := nano
 # inherit from omap4
 -include hardware/ti/omap4/BoardConfigCommon.mk
 
+-include hardware/ti/wpan/BoardConfigCommon.mk
+
 # set to allow building from omap4-common
 BOARD_VENDOR := bn
 
