@@ -6,6 +6,8 @@ on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
     write /sys/block/mmcblk0/queue/scheduler noop
 
+    mount_all /fstab.${ro.hardware} --early
+
 on init
     #loglevel 7
 
@@ -35,7 +37,7 @@ on fs
     mkdir /bootdata 0777 root root
 
     # mount partitions
-    mount_all /fstab.${ro.hardware}
+    mount_all /fstab.${ro.hardware} --late
     swapon_all /fstab.${ro.hardware}
 
     # zRAM read only 1 page at a time
