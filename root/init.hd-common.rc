@@ -34,6 +34,10 @@ on fs
     mkdir /rom 0777 root root
     mkdir /bootdata 0777 root root
 
+    # mount partitions
+    mount_all /fstab.${ro.hardware}
+    swapon_all /fstab.${ro.hardware}
+
     # zRAM read only 1 page at a time
     write /proc/sys/vm/page-cluster 0
     # Aggressive swap for dirty pages
