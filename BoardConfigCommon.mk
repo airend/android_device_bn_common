@@ -182,9 +182,6 @@ BOARD_SEPOLICY_M4DEFS += vensys=\(vendor\|system/vendor\)
 
 DEVICE_MANIFEST_FILE += $(COMMON_FOLDER)/manifest.xml
 
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
 # TWRP stuff
 TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_REBOOT_RECOVERY := true
