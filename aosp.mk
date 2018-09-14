@@ -21,7 +21,7 @@ PRODUCT_COPY_FILES += \
 
 # Device & filesystem
 PRODUCT_PACKAGES += \
-    Launcher3 \
+    Launcher3Go \
     WallpaperPicker \
     Terminal \
     nano
