@@ -184,6 +184,8 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 RECOVERY_NAME := EMMC CWM-based recovery
 TARGET_NO_SEPARATE_RECOVERY := true
 
+TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_FOLDER)/recovery/extensions
+
 # SELinux stuff
 BOARD_SEPOLICY_DIRS += device/bn/common/sepolicy
 
