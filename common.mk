@@ -126,6 +126,7 @@ PRODUCT_PACKAGES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+    resize2fs_static \
     make_ext4fs \
     sdcard \
     setup_fs \
