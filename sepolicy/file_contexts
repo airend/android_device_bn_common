@@ -17,6 +17,7 @@
 
 #bluetooth
 /dev/hci_tty                             u:object_r:hci_attach_dev:s0
+/sys/devices/platform/omap/omap_hsmmc.2/mmc_host/mmc2/mmc2:0001/mmc2:0001:2/wl12xx/bt_coex_state u:object_r:sysfs_bluetooth_writable:s0
 
 #The devices and files used by the hciattach service are device specific
 /dev/ttyO3                               u:object_r:hci_attach_dev:s0
