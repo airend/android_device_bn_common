@@ -8,3 +8,6 @@ allow uim uim_exec:file rx_file_perms;
 allow uim shell_exec:file rx_file_perms;
 #allow uim tee_exec:file rx_file_perms;
 #allow uim tee_device:chr_file rw_file_perms;
+
+r_dir_file(uim, sysfs_bluetooth_writable)
+allow uim sysfs_bluetooth_writable:file setattr;
