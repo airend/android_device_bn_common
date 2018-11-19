@@ -1,0 +1,1 @@
+allow wpa sysfs_bluetooth_writable:file rw_file_perms;
