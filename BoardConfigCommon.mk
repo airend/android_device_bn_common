@@ -72,8 +72,6 @@ TARGET_KERNEL_VARIANT_CONFIG := $(notdir $(wildcard \
 TARGET_KERNEL_SELINUX_CONFIG := $(notdir $(wildcard \
     $(TARGET_KERNEL_SOURCE)/arch/arm/configs/selinux_defconfig))
 
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
-
 ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/drivers/gpu/ion/ion_page_pool.c)))
 export BOARD_USE_TI_LIBION := false
 endif
