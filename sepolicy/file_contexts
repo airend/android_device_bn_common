@@ -17,7 +17,6 @@
 
 #bluetooth
 /dev/hci_tty                             u:object_r:hci_attach_dev:s0
-/sys/devices/virtual/bluetooth/hci0/rfkill0(/.*)?  u:object_r:sysfs_bluetooth_writable:s0
 
 #The devices and files used by the hciattach service are device specific
 /dev/ttyO3                               u:object_r:hci_attach_dev:s0

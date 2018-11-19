@@ -1,0 +1,2 @@
+# Bluetooth
+genfscon sysfs /devices/virtual/bluetooth/hci0/rfkill0 u:object_r:sysfs_bluetooth_writable:s0
