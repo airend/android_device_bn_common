@@ -1,2 +1,3 @@
 # Bluetooth
 genfscon sysfs /devices/virtual/bluetooth/hci0/rfkill0 u:object_r:sysfs_bluetooth_writable:s0
+genfscon sysfs /devices/platform/kim                   u:object_r:sysfs_bluetooth_writable:s0
