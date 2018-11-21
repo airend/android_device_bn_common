@@ -72,7 +72,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.nf.profile=2 \
     ro.nf.level=512 \
     persist.hwc.bltpolicy=0 \
-    lockscreen.rot_override=true \
     ro.disableWifiApFirmwareReload=true \
     media.stagefright.cache-params=18432/20480/15 \
     ro.ksm.default=1 \
