@@ -23,5 +23,5 @@
            ROTATION_180_MODE: 4
            ROTATION_270_MODE: 8
     -->
-    <integer name="def_accelerometer_rotation_angles">15</integer>
+    <!--<integer name="def_accelerometer_rotation_angles">15</integer>-->
 </resources>
