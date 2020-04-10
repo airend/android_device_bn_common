@@ -61,7 +61,7 @@ BOARD_KERNEL_BASE := 0x80000000
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_KERNEL_SOURCE := kernel/ti/omap4
+TARGET_KERNEL_SOURCE := kernel/bn/omap
 TARGET_KERNEL_CONFIG := nookhd_defconfig
 TARGET_KERNEL_VARIANT_CONFIG := $(notdir $(wildcard \
     $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_DEVICE)_defconfig))
@@ -79,6 +79,7 @@ $(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*ovation*.dts \
 $(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/*hummingbird*.dts)))
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 endif
+BOARD_KERNEL_IMAGE_NAME := zImage
 
 ifneq (,$(strip $(wildcard \
 $(TARGET_KERNEL_SOURCE)/drivers/gpu/ion/ion_page_pool.c \

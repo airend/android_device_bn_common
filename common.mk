@@ -24,6 +24,9 @@ TARGET_BOARD_OMAP_CPU := 4470
 $(call inherit-product, hardware/ti/omap4/omap4.mk)
 $(call inherit-product, hardware/ti/omap4/pvr-km.mk)
 
+# Android Go defaults for the low amount of ram
+$(call inherit-product, build/target/product/go_defaults.mk)
+
 # set to allow building from omap4-common
 BOARD_VENDOR := bn
 
